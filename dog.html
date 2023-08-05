@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="header" style="display: flex;justify-content: center;background-color: black;font-size: 1.5rem; font-weight: bold; color: white;">
+    
+       DOG
+    </div>
+    <div id="map" style="width: 100%; height: 800px;display: flex;"></div>
+
+
+
+</body>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    
+    let lat =  48.85667
+    let lng =  2.35222
+ 
+    getlocation()
+   
+var map = L.map('map', {
+    center: [lat,lng],
+    zoom: 20
+})
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        var marker = L.marker([lat, lng]).addTo(map);
+  
+  async function post() {
+    axios.post('/post-coords', {
+    "lat": lat,
+    "lng": lng
+  })
+  }
+  
+        async function getlocation() {
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, showError);
+} else {
+    console.log("not supported");
+}
+function showPosition(position) {
+ lat = position.coords.latitude;
+ lng = position.coords.longitude;
+ console.log(lat);
+ console.log(lng);
+}
+function showError(error) {
+switch (error.code) {
+    case error.PERMISSION_DENIED:
+        console.log("permissin denied");
+        break;
+    case error.POSITION_UNAVAILABLE:
+        console.log("unavialable");
+        break;
+    case error.TIMEOUT:
+        console.log("timedout");
+        break;
+    case error.UNKNOWN_ERROR:
+        console.log("unkonwn error");
+        break;
+}
+}
+}
+
+  
+
+
+async function display() {
+        map.setView([lat, lng]);
+        marker.setLatLng([lat, lng]);
+        console.log(`${lat},${lng}`);
+}
+
+
+
+
+
+
+
+
+setInterval(async() => {
+    await getlocation()
+   await  display()
+   await post()
+}, 5000);
+</script>
+
+</html>
