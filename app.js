@@ -22,5 +22,5 @@ app.get("/get-coords", (req, res) => {
 app.post("/post-coords", (req, res) => {
     coords = req.body
     console.log(req.body);
-    res.send(coords)
+     
 })
