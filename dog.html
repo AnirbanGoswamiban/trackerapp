@@ -38,7 +38,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         var marker = L.marker([lat, lng]).addTo(map);
   
   async function post() {
-    axios.post('/post-coords', {
+    axios.post('https://trackerapp-gamma.vercel.app/post-coords', {
     "lat": lat,
     "lng": lng
   })

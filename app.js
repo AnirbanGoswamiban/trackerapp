@@ -19,7 +19,7 @@ app.get("/get-coords", (req, res) => {
     res.send(coords)
 })
 
-app.post("/post-coords", (req, res) => {
+app.post("https://trackerapp-gamma.vercel.app/post-coords", (req, res) => {
     coords = req.body
     console.log(req.body);
      
