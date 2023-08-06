@@ -16,7 +16,7 @@ app.get("/watch", (req, res) => {
     res.sendFile(__dirname + "/watch.html")
 })
 app.get("/get-coords", (req, res) => {
-    res.send(coords)
+    res.json(coords)
 })
 
 app.post("/post-coords", (req, res) => {
